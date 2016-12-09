@@ -28,4 +28,4 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 // qa_register_plugin_phrases('qa-custom-user-list-lang-*.php', 'cul_lang');
 // layer
 qa_register_plugin_layer('qa-custom-user-list-layer.php','Custom User List Layer');
-// qa_register_plugin_overrides('qa-custom-user-list-overrides.php');
+qa_register_plugin_overrides('qa-custom-user-list-overrides.php');

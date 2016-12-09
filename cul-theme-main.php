@@ -5,7 +5,7 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 	exit;
 }
 
-// require_once CUL_DIR.'/cul-html-builder.php';
+require_once CUL_DIR.'/cul-html-builder.php';
 
 class cul_theme_main
 {
@@ -28,9 +28,7 @@ class cul_theme_main
 
         $theme_obj->widgets('main', 'top');
 
-        $theme_obj->output('cul-theme-main');
-        print_r($theme_obj->content['ranking']);
-        //   qa_html_builder::user_list();
+        self::user_list($theme_obj);
 
         $no_page_title_template = array('unanswered', 'user', 'users','login', 'blogs');
         if(!in_array($theme_obj->template, $no_page_title_template)) {
@@ -62,5 +60,15 @@ class cul_theme_main
         $theme_obj->output('</div> <!-- END qa-main -->', '');
         $theme_obj->output('</section>');
         $theme_obj->output('</div> <!-- END mdl-layout__content -->', '');
+    }
+    
+    private static function user_list($theme_obj)
+    {
+        $html = cul_html_builder::create_user_list($theme_obj);
+        $theme_obj->output('<div class="users-list">');
+        $theme_obj->output($html);
+        $theme_obj->output('</div>');
+        $spinner = cul_html_builder::create_spinner();
+        $theme_obj->output($spinner);
     }
 }

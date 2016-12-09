@@ -12,7 +12,17 @@
 //    Get list of all users
 
     $start = qa_get_start();
-    $users = qa_db_select_with_pending(qa_db_top_users_selectspec($start, qa_opt_if_loaded('page_size_users')));
+    $selectspec = qa_db_top_users_selectspec($start, qa_opt_if_loaded('page_size_users'));
+    
+    $subquery = " LEFT JOIN ( SELECT userid, CASE WHEN title = 'about' THEN content ELSE '' END AS about";
+    $subquery .= " FROM qa_userprofile WHERE title like 'about' ) a ON qa_users.userid = a.userid";
+    $subquery .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'location' THEN content ELSE '' END AS location";
+    $subquery .= " FROM qa_userprofile
+    WHERE title like 'location' ) l ON qa_users.userid = l.userid";
+    $selectspec['columns']['about'] = 'a.about';
+    $selectspec['columns']['location'] = 'l.location';
+    $selectspec['source'] .= $subquery;
+    $users = qa_db_select_with_pending($selectspec);
 
     $usercount = qa_opt('cache_userpointscount');
     $pagesize = qa_opt('page_size_users');
@@ -31,7 +41,7 @@
         'rows' => ceil($pagesize/qa_opt('columns_users')),
         'type' => 'users'
     );
-    $qa_content['custom'] = '<h3>hello, custom user list</h3>';
+    
     if (count($users)) {
         foreach ($users as $userid => $user) {
             if (QA_FINAL_EXTERNAL_USERS)
@@ -45,7 +55,10 @@
             $qa_content['ranking']['items'][] = array(
                 'avatar' => $avatarhtml,
                 'label' => $usershtml[$user['userid']],
+                'url' => qa_path_html('user/'.$user['handle']),
                 'score' => qa_html(number_format($user['points'])),
+                'about' => $user['about'],
+                'location' => $user['location'],
                 'raw' => $user,
             );
         }

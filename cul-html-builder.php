@@ -8,7 +8,7 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 class cul_html_builder
 {
     const ABOUT_MAX_LENGTH = 68;
-
+    
     public static function create_user_list($theme_obj)
     {
         $path = CUL_DIR . '/html/user_list.html';
@@ -21,7 +21,7 @@ class cul_html_builder
         }
         return $html;
     }
-
+    
     public static function create_params($user)
     {
         if (mb_strlen($user['about'], 'UTF-8') > self::ABOUT_MAX_LENGTH) {
@@ -39,16 +39,10 @@ class cul_html_builder
             '^url' => $user['url'],
         );
     }
-
+    
     public static function create_spinner()
     {
         $html = '<div class="ias-spinner" style="align:center;"><span class="mdl-spinner mdl-js-spinner is-active" style="height:20px;width:20px;"></span></div>';
         return $html;
     }
-
-    public static function create_control_items($theme_obj) {
-    		$path = CUL_DIR . '/html/control_items.html';
-    		$html = file_get_contents($path);
-				return $html;
-		}
 }

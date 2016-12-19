@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 if (!defined('QA_VERSION')) { // don't allow this page to be requested directly from browser
 	header('Location: ../../');
@@ -10,7 +10,7 @@ require_once CUL_DIR.'/cul-html-builder.php';
 class cul_theme_main
 {
     protected $context = array();
-
+    
     public static function main($theme_obj)
     {
         $content = $theme_obj->content;
@@ -28,7 +28,6 @@ class cul_theme_main
 
         $theme_obj->widgets('main', 'top');
 
-        self::control_items($theme_obj);
         self::user_list($theme_obj);
 
         $no_page_title_template = array('unanswered', 'user', 'users','login', 'blogs');
@@ -62,16 +61,7 @@ class cul_theme_main
         $theme_obj->output('</section>');
         $theme_obj->output('</div> <!-- END mdl-layout__content -->', '');
     }
-
-		/**
-		* 名前検索のフォームと、都道府県検索フォーム
-		*/
-		private static function control_items($theme_obj)
-		{
-			$html = cul_html_builder::create_control_items($theme_obj);
-			$theme_obj->output($html);
-		}
-
+    
     private static function user_list($theme_obj)
     {
         $html = cul_html_builder::create_user_list($theme_obj);

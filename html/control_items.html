@@ -1,2 +1,28 @@
-ここに検索フォームを表示してください。
-Htmlのみ、動作しなくても大丈夫です。
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col search-wrapper mdl-card mdl-shadow--2dp mdl-textfield mdl-js-textfield">
+    <input placeholder="検索" type="text" id="search" class="mdl-textfield__input">
+    <i class="material-icons">search</i>
+  </div>
+</div>
+<style>
+.search-wrapper {
+    margin: 16px 12px 0;
+    min-height: 45px;
+    transition: margin .25s ease;
+    padding: 0;
+}
+.search-wrapper input#search {
+    font-size: 16px;
+    font-weight: 300;
+    height: 45px;
+    margin: 0;
+    padding: 0 45px 0 15px;
+    border: 0;
+}
+.search-wrapper i.material-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+</style>

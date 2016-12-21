@@ -1,17 +1,25 @@
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--12-col search-wrapper mdl-card mdl-shadow--2dp mdl-textfield mdl-js-textfield">
-    <input placeholder="検索" type="text" id="search" class="mdl-textfield__input">
-    <i class="material-icons">search</i>
+    <select type="text" id="search" class="mdl-textfield__input">
+      <option value="">都道府県で検索</option>
+      <option value="">北海道</option>
+      <option value="">青森県</option>
+      <option value="">秋田県</option>
+      <option value="">宮城県</option>
+    </select>
   </div>
 </div>
 <style>
 .search-wrapper {
-    margin: 16px 12px 0;
+    margin: 16px 0 0;
     min-height: 45px;
-    transition: margin .25s ease;
     padding: 0;
 }
-.search-wrapper input#search {
+.search-wrapper.is-focused{
+  margin-left: 0;
+  margin-right: 0;
+}
+.search-wrapper select#search {
     font-size: 16px;
     font-weight: 300;
     height: 45px;

@@ -13,19 +13,34 @@
 
     $start = qa_get_start();
     $selectspec = qa_db_top_users_selectspec($start, qa_opt_if_loaded('page_size_users'));
-    
-    $subquery = " LEFT JOIN ( SELECT userid, CASE WHEN title = 'about' THEN content ELSE '' END AS about";
-    $subquery .= " FROM qa_userprofile WHERE title like 'about' ) a ON qa_users.userid = a.userid";
-    $subquery .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'location' THEN content ELSE '' END AS location";
-    $subquery .= " FROM qa_userprofile
-    WHERE title like 'location' ) l ON qa_users.userid = l.userid";
+    $cond_location = qa_get('location');
+    $query = " ^users JOIN (SELECT userid FROM ^userpoints ORDER BY points DESC ) y ON ^users.userid=y.userid";
+    $query .= " JOIN ^userpoints ON ^users.userid=^userpoints.userid";
+    $query .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'about' THEN content ELSE '' END AS about";
+    $query .= " FROM qa_userprofile WHERE title like 'about' ) a ON qa_users.userid = a.userid";
+    $query .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'location' THEN content ELSE '' END AS location";
+    $query .= " FROM qa_userprofile
+    WHERE title like 'location' ) l ON qa_users.userid = l.userid";$selectspec['arguments'] = array();
+    if (isset($cond_location)) {
+        $query .= " WHERE l.location like $";
+        $selectspec['arguments'][] = '%'.$cond_location.'%';
+    }
+    $query .= " LIMIT #,#";
+    $selectspec['arguments'][] = $start;
+    $selectspec['arguments'][] = qa_opt('page_size_users');
     $selectspec['columns']['about'] = 'a.about';
     $selectspec['columns']['location'] = 'l.location';
-    $selectspec['source'] .= $subquery;
+    $selectspec['source'] = $query;
     $users = qa_db_select_with_pending($selectspec);
-
-    $usercount = qa_opt('cache_userpointscount');
+    
+    if (isset($cond_location)) {
+        $usercount = page_size_location($cond_location);
+    } else {
+        $usercount = qa_opt('cache_userpointscount');
+    }
     $pagesize = qa_opt('page_size_users');
+    
+    
     $users = array_slice($users, 0, $pagesize);
     $usershtml = qa_userids_handles_html($users);
 
@@ -66,13 +81,25 @@
     else
         $qa_content['title'] = qa_lang_html('main/no_active_users');
 
-    $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'));
-
+    if (isset($cond_location)) {
+        $options = array('location' => $cond_location);
+        $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'), $options);
+    } else {
+        $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'));
+    }
     $qa_content['navigation']['sub'] = qa_users_sub_navigation();
 
     return $qa_content;
 
 
+function page_size_location($location) {
+    $sql = "SELECT count(*)";
+    $sql .= " FROM ^users";
+    $sql .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'location' THEN content ELSE '' END AS location";
+    $sql .= " FROM ^userprofile WHERE title like 'location' ) l ON ^users.userid = l.userid";
+    $sql .= " WHERE l.location like $";
+    return qa_db_read_one_value(qa_db_query_sub($sql, '%'.$location.'%'), true);
+}
 /*
     Omit PHP closing tag to help avoid accidental output
 */

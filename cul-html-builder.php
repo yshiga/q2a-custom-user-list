@@ -11,6 +11,9 @@ class cul_html_builder
 
     public static function create_user_list($theme_obj)
     {
+        if (count($theme_obj->content['ranking']['items']) <= 0) {
+            return '<span style="font-size:18px;color:#646464;padding-left:12px;">'.qa_lang_html('main/no_active_users').'</span>';
+        }
         $path = CUL_DIR . '/html/user_list.html';
         $template = file_get_contents($path);
         $html = '';

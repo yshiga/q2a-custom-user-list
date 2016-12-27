@@ -19,6 +19,10 @@ class qa_html_theme_layer extends qa_html_theme_base
             $this->output('<SCRIPT TYPE="text/javascript" SRC="'.$this->infscr->pluginjsurl.'jquery-ias.min.js"></SCRIPT>');
             $this->output('<SCRIPT TYPE="text/javascript">var action = "'.$action.'";</SCRIPT>');
             $this->output('<SCRIPT TYPE="text/javascript" SRC="'. QA_HTML_THEME_LAYER_URLTOROOT.'js/ias-users.js"></SCRIPT>');
+            
+            $cond_location = qa_get('location');
+            $this->output('<SCRIPT>',' var cond_location = "'.$cond_location.'";','</SCRIPT>');
+            $this->output('<SCRIPT TYPE="text/javascript" SRC="'. QA_HTML_THEME_LAYER_URLTOROOT.'js/custom-user-list.js"></SCRIPT>');
         }
     }
 

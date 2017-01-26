@@ -24,8 +24,8 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 @define( 'CUL_TARGET_THEME_NAME', 'q2a-material-lite');
 @define( 'CUL_RELATIVE_PATH', '../qa-plugin/'.CUL_FOLDER.'/');
 
-// // language file
-// qa_register_plugin_phrases('qa-custom-user-list-lang-*.php', 'cul_lang');
+// language file
+qa_register_plugin_phrases('qa-custom-user-list-lang-*.php', 'cul_lang');
 // layer
 qa_register_plugin_layer('qa-custom-user-list-layer.php','Custom User List Layer');
 qa_register_plugin_overrides('qa-custom-user-list-overrides.php');

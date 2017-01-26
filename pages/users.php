@@ -20,7 +20,8 @@
     $query .= " FROM qa_userprofile WHERE title like 'about' ) a ON qa_users.userid = a.userid";
     $query .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'location' THEN content ELSE '' END AS location";
     $query .= " FROM qa_userprofile
-    WHERE title like 'location' ) l ON qa_users.userid = l.userid";$selectspec['arguments'] = array();
+    WHERE title like 'location' ) l ON qa_users.userid = l.userid";
+    $selectspec['arguments'] = array();
     if (isset($cond_location)) {
         $query .= " WHERE l.location like $";
         $selectspec['arguments'][] = '%'.$cond_location.'%';
@@ -49,7 +50,13 @@
 
     $qa_content = qa_content_prepare();
 
-    $qa_content['title'] = qa_lang_html('main/highest_users');
+    if (isset($cond_location)) {
+      $location_name = get_location($cond_location);
+      $qa_content['title'] = strtr(qa_lang_html('cul_lang/location_title'), array('^1' => $location_name));
+      $qa_content['description'] = get_description($location_name);
+    } else {
+      $qa_content['title'] = qa_lang_html('main/highest_users');
+    }
 
     $qa_content['ranking'] = array(
         'items' => array(),
@@ -100,6 +107,29 @@ function page_size_location($location) {
     $sql .= " WHERE l.location like $";
     return qa_db_read_one_value(qa_db_query_sub($sql, '%'.$location.'%'), true);
 }
+
+function get_location($location)
+{
+    $name = '';
+    if ($location === '北海道') {
+        $name = $location;
+    } elseif ($location === '東京都') {
+        $name = $location;
+    } elseif ($location === '京都' || $location === '大阪') {
+        $name = $location . '府';
+    } else {
+        $name = $location . '県';
+    }
+    return $name;
+    
+}
+
+function get_description($location)
+{
+    $desc = strtr(qa_lang('cul_lang/location_description'), array('^1' => $location));
+    return $desc;
+}
+
 /*
     Omit PHP closing tag to help avoid accidental output
 */

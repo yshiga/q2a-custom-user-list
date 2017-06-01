@@ -40,6 +40,7 @@ class cul_html_builder
             '^points' => $user['score'],
             '^about' =>  $about,
             '^url' => $user['url'],
+            '^location_label' => qa_lang_html('cul_lang/location_label'),
         );
     }
 

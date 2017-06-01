@@ -9,8 +9,8 @@ $(function(){
         ,delay: 600
       });
       ias.extension(new IASTriggerExtension({
-          text: "続きを読む",
-          textPrev: "前を読む",
+          text: cul_lang.read_next,
+          textPrev: cul_lang.read_previous,
           offset: 100,
       }));
       ias.extension(new IASNoneLeftExtension({

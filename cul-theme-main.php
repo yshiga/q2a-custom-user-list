@@ -42,12 +42,12 @@ class cul_theme_main
             $theme_obj->main_parts($content);
         }
 
+        $theme_obj->page_links();
         if($theme_obj->template !== 'question' && $theme_obj->template !== 'login') {
             $theme_obj->output('</div><!-- END centering__width-640 -->');
         }
 
         $theme_obj->widgets('main', 'low');
-        $theme_obj->page_links();
         $theme_obj->suggest_next();
         $theme_obj->widgets('main', 'bottom');
 
@@ -78,7 +78,5 @@ class cul_theme_main
         $theme_obj->output('<div class="users-list">');
         $theme_obj->output($html);
         $theme_obj->output('</div>');
-        $spinner = cul_html_builder::create_spinner();
-        $theme_obj->output($spinner);
     }
 }

@@ -44,12 +44,6 @@ class cul_html_builder
         );
     }
 
-    public static function create_spinner()
-    {
-        $html = '<div class="ias-spinner" style="align:center;"><span class="mdl-spinner mdl-js-spinner is-active" style="height:20px;width:20px;"></span></div>';
-        return $html;
-    }
-
     public static function create_control_items($theme_obj) {
     		$path = CUL_DIR . '/html/control_items.html';
     		$html = file_get_contents($path);

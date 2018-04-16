@@ -31,12 +31,13 @@ class qa_html_theme_layer extends qa_html_theme_base
         }
     }
 
-    public function main()
-    {
-        if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME && $this->template === 'users') {
-            cul_theme_main::main($this);
+    public function page_title_error() {
+        if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME
+            && $this->template === 'users') {
+            cul_theme_main::control_items($this);
+            cul_theme_main::user_list($this);
         } else {
-            qa_html_theme_base::main();
+            qa_html_theme_base::page_title_error();
         }
     }
     

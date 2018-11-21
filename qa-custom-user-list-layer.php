@@ -35,9 +35,18 @@ class qa_html_theme_layer extends qa_html_theme_base
         if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME
             && $this->template === 'users') {
             cul_theme_main::control_items($this);
-            cul_theme_main::user_list($this);
         } else {
             qa_html_theme_base::page_title_error();
+        }
+    }
+
+    public function main_parts($content)
+    {
+        if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME
+            && $this->template === 'users') {
+            cul_theme_main::user_list($this);
+        } else {
+            qa_html_theme_base::main_parts($content);
         }
     }
     

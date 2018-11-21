@@ -25,6 +25,5 @@ class cul_theme_main
         $html = cul_html_builder::create_user_list($theme_obj);
         $theme_obj->output('<div class="users-list">');
         $theme_obj->output($html);
-        $theme_obj->output('</div>');
     }
 }

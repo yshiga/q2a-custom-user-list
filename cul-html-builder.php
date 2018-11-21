@@ -16,12 +16,15 @@ class cul_html_builder
         }
         $path = CUL_DIR . '/html/user_list.html';
         $template = file_get_contents($path);
-        $html = '';
+        $html = '<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"';
+        $html.= '<div class="mdl-list">';
         foreach ($theme_obj->content['ranking']['items'] as $user) {
             $params = self::create_params($user);
             $html .= strtr($template, $params);
             $html .= PHP_EOL;
         }
+        $html.= '</div>';
+        $html.= '</div>';
         return $html;
     }
 

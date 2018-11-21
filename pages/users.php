@@ -76,7 +76,7 @@
             // avatar and handle now listed separately for use in themes
             $qa_content['ranking']['items'][] = array(
                 'avatar' => $avatarhtml,
-                'label' => $usershtml[$user['userid']],
+                'label' => $user['handle'],
                 'url' => qa_path_html('user/'.$user['handle']),
                 'score' => qa_html(number_format($user['points'])),
                 'about' => $user['about'],

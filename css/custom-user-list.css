@@ -1,0 +1,38 @@
+/* custom users list css */
+.mdl-list.qa-users-list {
+    padding: 0;
+}
+.mdl-list.qa-users-list .mdl-list__item {
+    position: relative;
+    width: 100%;
+}
+.mdl-list.qa-users-list .mdl-list__item:hover {
+    background-color: #fffde5;
+    cursor: pointer;
+}
+.mdl-list.qa-users-list .mdl-list__item-primary-content {
+    height: 88px;
+    padding-top: 16px;
+    border-bottom: 2px solid rgba(0,0,0,0.12);
+}
+.mdl-list.qa-users-list .mdl-list__item:last-child .mdl-list__item-primary-content {
+    border-bottom: none;
+}
+.mdl-list.qa-users-list .mdl-list__item-avatar {
+    margin: 8px 16px 24px 0;
+}
+.mdl-list.qa-users-list .mdl-chip__text {
+    margin-left: 19px;
+    color: rgba(0,0,0,0.66);
+}
+.mdl-list.qa-users-list .mdl-chip__text i.material-icons {
+    font-size: 22px;
+    color: #757575;
+    vertical-align: middle;
+}
+.mdl-list.qa-users-list .mdl-list__item-text-body {
+    line-height: 20px;
+}
+.qa-template-users .qa-page-links {
+    padding: 16px 8px 0;
+}

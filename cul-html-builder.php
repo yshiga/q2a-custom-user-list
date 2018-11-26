@@ -38,7 +38,7 @@ class cul_html_builder
         }
         if (mb_strlen($user['about'], 'UTF-8') > $maxlength) {
             $about = mb_substr($user['about'], 0, $maxlength - 1, 'UTF-8');
-            $about .= '<a href="'.$user['url'].'">...</a>';
+            $about .= '...';
         } else {
             $about = $user['about'];
         }

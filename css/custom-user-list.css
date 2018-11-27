@@ -13,7 +13,7 @@
 .mdl-list.qa-users-list .mdl-list__item-primary-content {
     height: 88px;
     padding-top: 16px;
-    border-bottom: 2px solid rgba(0,0,0,0.12);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 .mdl-list.qa-users-list .mdl-list__item:last-child .mdl-list__item-primary-content {
     border-bottom: none;

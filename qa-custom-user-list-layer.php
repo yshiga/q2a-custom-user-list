@@ -35,10 +35,29 @@ class qa_html_theme_layer extends qa_html_theme_base
         if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME
             && $this->template === 'users') {
             cul_theme_main::control_items($this);
-            cul_theme_main::user_list($this);
         } else {
             qa_html_theme_base::page_title_error();
         }
+    }
+
+    public function main_parts($content)
+    {
+        if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME
+            && $this->template === 'users') {
+            cul_theme_main::user_list($this);
+        } else {
+            qa_html_theme_base::main_parts($content);
+        }
+    }
+
+    public function head_css()
+    {
+        qa_html_theme_base::head_css();
+        if (qa_opt('site_theme') === CUL_TARGET_THEME_NAME
+            && $this->template === 'users') {
+            $this->output('<link rel="stylesheet" type="text/css" href="'. QA_HTML_THEME_LAYER_URLTOROOT.'css/custom-user-list.css">');
+        }
+
     }
     
 }

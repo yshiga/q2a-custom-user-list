@@ -24,6 +24,9 @@
     $selectspec['arguments'] = array();
     if (isset($cond_location)) {
         $query .= " WHERE l.location like $";
+        if ($cond_location == '京都') {
+            $query .= " AND l.location not like '%東京都%'";
+        }
         $selectspec['arguments'][] = '%'.$cond_location.'%';
     }
     $query .= " LIMIT #,#";
@@ -105,6 +108,9 @@ function page_size_location($location) {
     $sql .= " LEFT JOIN ( SELECT userid, CASE WHEN title = 'location' THEN content ELSE '' END AS location";
     $sql .= " FROM ^userprofile WHERE title like 'location' ) l ON ^users.userid = l.userid";
     $sql .= " WHERE l.location like $";
+    if ($location == '京都') {
+        $sql .= " AND l.location not like '%東京都%'";
+    }
     return qa_db_read_one_value(qa_db_query_sub($sql, '%'.$location.'%'), true);
 }
 

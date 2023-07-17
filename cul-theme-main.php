@@ -22,7 +22,7 @@ class cul_theme_main
 
     public static function user_list($theme_obj)
     {
-        $html = cul_html_builder::create_user_list($theme_obj);
-        $theme_obj->output($html);
+//        $html = cul_html_builder::create_user_list($theme_obj);
+//        $theme_obj->output($html);
     }
 }

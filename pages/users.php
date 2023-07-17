@@ -12,6 +12,7 @@
 //    Get list of all users
 
     $start = qa_get_start();
+    /*
     $selectspec = qa_db_top_users_selectspec($start, qa_opt_if_loaded('page_size_users'));
     $cond_location = qa_get('location');
     $query = " ^users JOIN (SELECT userid FROM ^userpoints ORDER BY points DESC ) y ON ^users.userid=y.userid";
@@ -36,6 +37,8 @@
     $selectspec['columns']['location'] = 'l.location';
     $selectspec['source'] = $query;
     $users = qa_db_select_with_pending($selectspec);
+    */
+    $users = array();
     
     if (isset($cond_location)) {
         $usercount = page_size_location($cond_location);
@@ -67,6 +70,7 @@
         'type' => 'users'
     );
     
+    /*
     if (count($users)) {
         foreach ($users as $userid => $user) {
             if (QA_FINAL_EXTERNAL_USERS)
@@ -90,12 +94,15 @@
     }
     else
         $qa_content['title'] = qa_lang_html('main/no_active_users');
+    */
+
+    $qa_content['title'] = 'ユーザー一覧';
 
     if (isset($cond_location)) {
         $options = array('location' => $cond_location);
-        $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'), $options);
+        // $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'), $options);
     } else {
-        $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'));
+        // $qa_content['page_links'] = qa_html_page_links(qa_request(), $start, $pagesize, $usercount, qa_opt('pages_prev_next'));
     }
     $qa_content['navigation']['sub'] = qa_users_sub_navigation();
 
